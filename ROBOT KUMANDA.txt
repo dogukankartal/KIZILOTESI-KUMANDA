@@ -1,0 +1,99 @@
+#include <IRremote.h>
+#include "LowPower.h"
+
+IRsend irsend; 
+const int buton1 =  2;
+const int buton2  = 4;
+const int buton3  = 5;
+const int buton4  = 6;
+const int buton5  = 7;
+const int buton6  = 8;
+const int buton7  = 9;
+const int buton8  = 10;
+const int buton9  = 12;
+
+int timer;
+int modeCounter = 0;
+
+void wakeUp() {
+  timer = 0;
+}
+
+void setup() {
+  pinMode(buton1, INPUT);
+  pinMode(buton2, INPUT);
+  pinMode(buton3, INPUT);
+  pinMode(buton3, INPUT);
+  pinMode(buton4, INPUT);
+  pinMode(buton5, INPUT);
+  pinMode(buton6, INPUT);
+  pinMode(buton7, INPUT);
+  pinMode(buton8, INPUT);
+  pinMode(buton9, INPUT);
+}
+
+void loop() {
+  attachInterrupt(0, wakeUp, HIGH);
+   
+   while (timer < 10000) {
+    if (digitalRead(buton1) == HIGH) {
+     
+      timer = 0;
+      delay(50);
+      irsend.sendNEC(0x88C55, 32);     
+    }
+    if (digitalRead(buton2) ==HIGH ) {
+      
+      timer = 0;
+      delay(50);
+      irsend.sendNEC(0x88C50,32);  
+    }
+
+    if (digitalRead(buton3) == HIGH) {
+      timer = 0;
+      delay(50);
+      irsend.sendNEC(0x88C56, 32);     
+    }
+
+    if (digitalRead(buton4) == HIGH) {
+      timer = 0;
+      delay(50);
+      irsend.sendNEC(0x88C53,32);    
+    }
+
+    if (digitalRead(buton5) == HIGH) {
+      timer = 0;
+      delay(50);
+      irsend.sendNEC(0x88C52, 32);     
+    }
+    
+    if (digitalRead(buton6) == HIGH) {
+      timer = 0;
+      delay(50);
+      irsend.sendNEC(0x88C54,32);     
+    }
+    
+    if (digitalRead(buton7) == HIGH) {
+      timer = 0;
+      delay(50);
+      irsend.sendNEC(0x88C0051, 32);     
+    }
+    
+    if (digitalRead(buton8) == HIGH) {
+      timer = 0;
+      delay(50);
+      irsend.sendNEC(0x88C51,32);     
+    }
+    
+    if (digitalRead(buton9) == HIGH) {
+      timer = 0;
+      delay(50);
+      irsend.sendNEC(0x88C0051, 32);     
+    }
+    delay(1);
+    timer = timer + 1;
+
+  }
+  
+  LowPower.powerDown(SLEEP_FOREVER, ADC_OFF, BOD_OFF);
+}
